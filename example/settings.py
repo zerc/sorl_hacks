@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'ckeditor',
 
     'blog',
+    'ckeditor_media',
 
 )
 
