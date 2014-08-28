@@ -64,7 +64,7 @@ class TextBlock(models.Model):
     blog_post = models.ForeignKey(BlogPost, related_name='blocks')
 
     title = models.CharField('title', max_length=255)
-    body = models.TextField('body')
+    body = RichTextField('body')
 
     class Meta:
         verbose_name = 'text block'
