@@ -3,9 +3,9 @@ from __future__ import unicode_literals
 
 from django.core.management.base import AppCommand, CommandError
 from django.db.models import get_models
-from ckeditor.fields import RichTextField
+from django.db.models import TextField
 
-from ckeditor_media.utils import create_thumbs
+from sorl_hacks.utils import create_thumbs
 
 
 class Command(AppCommand):
@@ -14,7 +14,7 @@ class Command(AppCommand):
     def handle_app(self, app, **kwargs):
         for model in get_models(app):
             affected_fields = [f.name for f in model._meta.fields
-                               if isinstance(f, RichTextField)]
+                               if isinstance(f, TextField)]
 
             if not affected_fields:
                 continue
