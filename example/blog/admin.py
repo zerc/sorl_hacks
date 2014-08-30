@@ -2,7 +2,8 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from ckeditor_media.admin import ThumbedCkeditorImages
+from sorl_hacks.admin import ThumbedCkeditorImages
+
 from .models import BlogPost, TextBlock, Tag
 
 

@@ -45,7 +45,7 @@ INSTALLED_APPS = (
     'ckeditor',
 
     'blog',
-    'ckeditor_media',
+    'sorl_hacks',
 
 )
 
