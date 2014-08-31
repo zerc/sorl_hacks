@@ -18,6 +18,8 @@ THUMBNAIL_OPTIONS = getattr(
 
 THUMBNAIL_EMPTY = getattr(settings, 'THUMBNAIL_EMPTY', None)
 
+THUMBNAIL_ALIASES = getattr(settings, 'THUMBNAIL_ALIASES', dict(small='20x20'))
+
 
 class ThumbMixin(object):
     """
@@ -27,6 +29,8 @@ class ThumbMixin(object):
     ::
 
         {{ my_model.get_thumb_56x56.html }}
+
+        {{ my_model.get_thumb_small.html }}
 
     Insted of:
 
@@ -47,7 +51,13 @@ class ThumbMixin(object):
     def __getattr__(self, name):
         prefix = 'get_thumb_'
         if name.startswith(prefix):
-            size = name.replace(prefix, '')
+            suffix = name.replace(prefix, '')
+
+            if THUMBNAIL_ALIASES and suffix in THUMBNAIL_ALIASES:
+                size = THUMBNAIL_ALIASES[suffix]
+            else:
+                size = suffix
+
             return self._get_thumb(size)
         raise AttributeError(name)
 
