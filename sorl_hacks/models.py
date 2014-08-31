@@ -32,7 +32,7 @@ class ThumbMixin(object):
 
         {{ my_model.get_thumb_small.html }}
 
-    Insted of:
+    instead of:
 
     ::
         {% thumbnail my_model.pic "56x56" crop="center" as im %}
