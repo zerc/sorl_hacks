@@ -1,11 +1,14 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
-from ckeditor.fields import RichTextField
+from sorl.thumbnail import ImageField
 from django.core.urlresolvers import reverse
-
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
+
+from ckeditor.fields import RichTextField
+
+from sorl_hacks.models import ThumbMixin
 
 
 nullable = dict(blank=True, null=True)
@@ -36,8 +39,9 @@ class Tag(models.Model):
 
 
 @python_2_unicode_compatible
-class BlogPost(models.Model):
+class BlogPost(ThumbMixin, models.Model):
     title = models.CharField('title', max_length=255)
+    image = ImageField('image', upload_to='posts', **nullable)
 
     lead = RichTextField('lead')
     body = RichTextField('body')

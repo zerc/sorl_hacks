@@ -14,7 +14,7 @@ class TextBlockInline(admin.TabularInline):
 
 class BlogPostAdmin(ThumbedCkeditorImages):
     list_display = ('title', 'category',)
-    fields = ('title', 'category', 'tags', 'lead', 'body')
+    fields = ('title', 'category', 'image', 'tags', 'lead', 'body')
     list_select_related = ('category',)
     inlines = [TextBlockInline]
     filter_horizontal = ('tags',)
