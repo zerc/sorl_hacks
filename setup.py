@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-sorl-hacks',
-    version='0.1',
+    version='0.1.10',
     author='Vladimir Savin',
     author_email='zero13cool@yandex.ru',
 

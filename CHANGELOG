@@ -1,0 +1,7 @@
+Changelog
+=========
+
+0.1.10
+-----
+#. Add ``django_jinja`` module support
+#. Little bit improvement parse function
