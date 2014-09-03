@@ -4,7 +4,7 @@ django-sorl-hacks
 
 create_thumbs template tag
 --------------------------
-Parse your text on fly, finds images urls and replace by thumb url:
+Parse your text on fly, finds images urls and replace it by thumb url:
 
 ::
 
@@ -35,7 +35,7 @@ admin.py:
 
 ThumbMixin
 -----------
-Usefull in Django templates. Add property ``my_model.get_thumb_WIDTHxHEIGHT`` to yours models.
+Usefull in stadart Django templates. Add property ``my_model.get_thumb_WIDTHxHEIGHT`` to yours models.
 
 Example of ``my_model_detail.html``:
 
@@ -61,7 +61,7 @@ instead of:
 
 Your ``models.py``:
 
-::
+.. code:: python
 
     from django.db import models
     from sorl.thumbnail import ImageField
