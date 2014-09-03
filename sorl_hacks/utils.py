@@ -7,10 +7,11 @@ import re
 from sorl.thumbnail import get_thumbnail
 from django.conf import settings
 
+flags = re.I | re.U | re.M
 
-URLS_RE = re.compile(
-    r'src="(.*?)" style=".*?height:(\d+)px;.*?width:(\d+)px',
-    re.I | re.U | re.M)
+URLS_RE = re.compile(r'src="(.*?)" style="(.*?)"', flags)
+WIDTH_RE = re.compile(r'width:\s*?(\d+)px', flags)
+HEIGHT_RE = re.compile(r'height:\s*?(\d+)px', flags)
 
 
 def create_thumbs(value):
@@ -24,10 +25,15 @@ def create_thumbs(value):
         return value
 
     for chunk in chunks:
-        if len(chunk) != 3:
+        if len(chunk) != 2:
             continue
 
-        url, height, width = chunk
+        wh = parse_style(chunk[-1])
+
+        if not wh:
+            continue
+
+        url, width, height = chunk[0], wh[0], wh[1]
 
         img_path = os.path.join(settings.BASE_DIR, url[url.startswith('/'):])
         thumb = get_thumbnail(img_path, '{}x{}'.format(width, height))
@@ -35,3 +41,15 @@ def create_thumbs(value):
         value = value.replace(url, thumb.url)
 
     return value
+
+
+def parse_style(style_string):
+    """
+    Parse style attribute of img tag
+    Return tuple like (width, height) or None
+    """
+    try:
+        return (WIDTH_RE.findall(style_string)[0],
+                HEIGHT_RE.findall(style_string)[0])
+    except IndexError:
+        return None
